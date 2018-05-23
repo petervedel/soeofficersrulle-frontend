@@ -1,0 +1,22 @@
+.app-container {
+  padding: 25px; }
+
+.ReactTable {
+  height: 500px; }
+  .ReactTable .rt-thead {
+    overflow-y: scroll; }
+
+.react-datepicker__day--selected {
+  background-color: #007bff !important; }
+
+.hide-signin-form {
+  display: none; }
+
+.select-is-invalid {
+  border-color: #dc3545 !important; }
+
+.react-datepicker-wrapper, .react-datepicker__input-container {
+  width: 100%; }
+
+.rt-tr-group {
+  flex: 0 !important; }
