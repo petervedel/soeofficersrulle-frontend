@@ -40,42 +40,69 @@ export default class MyNavBar extends React.Component {
         });
     }
 
-    renderAdminMenu() {
-        if (this.state.userState !== null && this.state.userState.isAdmin === true) {
+    renderSystemMenu() {
+        if ((this.state.userState !== null) && (this.state.userState.isAdmin === true || this.state.userState.isContributer === true)) {
             return (
-                <li className="nav-item">
-                    <Link to="/dashboard" className="nav-link">
+                <UncontrolledDropdown nav inNavbar>
+                    <DropdownToggle nav caret>
                         <FormattedMessage
-                            id="globals_nav.admin"
+                            id="globals_nav.system"
                             defaultMessage="*translation missing*"
                         />
-                    </Link>
-                </li>
+                    </DropdownToggle>
+                    <DropdownMenu right>
+                        <DropdownItem>
+                            <Link to="/system/add_content" className={`nav-link ${window.location.pathname.toString() === '/system/add_content' ? 'active' : ''}`}>
+                                <FormattedMessage
+                                    id="globals_nav.create"
+                                    defaultMessage="*translation missing*"
+                                />
+                            </Link>
+                        </DropdownItem>
+                        {this.renderAdditionalOptions()}
+                    </DropdownMenu>
+                </UncontrolledDropdown>
             )
         } else {
             return (
-                <li className="nav-item">
-                </li>
+                <span></span>
             )
         }
     }
 
-    renderAddMenu() {
-        if (this.state.userState !== null && (this.state.userState.isAdmin === true || this.state.userState.isContributer === true)) {
+    renderAdditionalOptions() {
+        if (this.state.userState !== null && this.state.userState.isAdmin === true) {
             return (
-                <li className="nav-item">
-                    <Link to="/person/create" className="nav-link">
-                        <FormattedMessage
-                            id="globals_nav.create"
-                            defaultMessage="*translation missing*"
-                        />
-                    </Link>
-                </li>
+                <span>
+                    <DropdownItem>
+                        <Link to="/system/upload_file" className={`nav-link ${window.location.pathname.toString() === '/system/upload_file' ? 'active' : ''}`}>
+                            <FormattedMessage
+                                id="system.file_upload_actions"
+                                defaultMessage="*translation missing*"
+                            />
+                        </Link>
+                    </DropdownItem>
+                    <DropdownItem>
+                        <Link to="/system/add_user" className={`nav-link ${window.location.pathname.toString() === '/system/add_user' ? 'active' : ''}`}>
+                            <FormattedMessage
+                                id="system.create_user"
+                                defaultMessage="*translation missing*"
+                            />
+                        </Link>
+                    </DropdownItem>
+                    <DropdownItem>
+                        <Link to="/system/user_search" className={`nav-link ${window.location.pathname.toString() === '/system/user_search' ? 'active' : ''}`}>
+                            <FormattedMessage
+                                id="system.user_search"
+                                defaultMessage="*translation missing*"
+                            />
+                        </Link>
+                    </DropdownItem>
+                </span>
             )
         } else {
             return (
-                <li className="nav-item">
-                </li>
+                <span></span>
             )
         }
     }
@@ -83,7 +110,7 @@ export default class MyNavBar extends React.Component {
     renderOfficerCorpsMenu() {
         return (
             <li className="nav-item">
-                <Link to="/officer/corps" className="nav-link">
+                <Link to="/officer_corps" className={`nav-link ${window.location.pathname.toString() === '/officer_corps' ? 'active' : ''}`}>
                     <FormattedMessage
                         id="globals_nav.officer_corps"
                         defaultMessage="*translation missing*"
@@ -94,16 +121,10 @@ export default class MyNavBar extends React.Component {
     }
 
     renderSignInOrOut() {
-        const onLogout = () => {
-            localStorage.removeItem('userSession')
-            this.setState({
-                userState: userState()
-            });
-        }
         if (this.state.userState !== null && this.state.userState.loggedIn === true) {
             return (
                 <li className="nav-item">
-                    <Link to="/" onClick={onLogout} className="nav-link">
+                    <Link to="/" className="nav-link">
                         <FormattedMessage
                             id="globals_label.log_out"
                             defaultMessage="*translation missing*"
@@ -114,7 +135,7 @@ export default class MyNavBar extends React.Component {
         } else {
             return (
                 <li className="nav-item">
-                    <Link to="/login" className="nav-link">
+                    <Link to="/" className={`nav-link ${window.location.pathname.toString() === '/' ? 'active' : ''}`}>
                         <FormattedMessage
                             id="globals_label.log_in"
                             defaultMessage="*translation missing*"
@@ -140,13 +161,21 @@ export default class MyNavBar extends React.Component {
 
     render() {
         return (
-            <Navbar color="light" light expand="md">
-                <Link to="/" className="navbar-brand">Den Digitale YX-rulle</Link>
+            <Navbar expand="md" color="faded" light>
+                <Link to="/search" className="navbar-brand"><img src="/logo.png" height="40" alt="" /> <span className="ml-2">Søofficersrullen</span></Link>
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
                         <li className="nav-item">
-                            <Link to="/" className="nav-link">
+                            <a href="http://soeofficer.landing.dev.nordkern.dk/" className="nav-link">
+                                <FormattedMessage
+                                    id="globals_label.home"
+                                    defaultMessage="*translation missing*"
+                                />
+                            </a>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/search" className={`nav-link ${window.location.pathname.toString() === '/search' ? 'active' : ''}`}>
                                 <FormattedMessage
                                     id="globals_nav.search"
                                     defaultMessage="*translation missing*"
@@ -154,8 +183,7 @@ export default class MyNavBar extends React.Component {
                             </Link>
                         </li>
                         {this.renderOfficerCorpsMenu()}
-                        {this.renderAddMenu()}
-                        {this.renderAdminMenu()}
+                        {this.renderSystemMenu()}
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret>
                                 <FormattedMessage
@@ -163,14 +191,14 @@ export default class MyNavBar extends React.Component {
                                     defaultMessage="*translation missing*"
                                 />
                             </DropdownToggle>
-                            <DropdownMenu >
+                            <DropdownMenu right>
                                 <DropdownItem onClick={() => this.setLangPref('da')}>
-                                    <div className="nav-link">
+                                    <div className={`nav-link ${langState().toString() === 'da' ? 'active' : ''}`}>
                                         Dansk
                                     </div>
                                 </DropdownItem>
                                 <DropdownItem onClick={() => this.setLangPref('en')}>
-                                    <div className="nav-link">
+                                    <div className={`nav-link ${langState().toString() === 'en' ? 'active' : ''}`}>
                                         English
                                     </div>
                                 </DropdownItem>

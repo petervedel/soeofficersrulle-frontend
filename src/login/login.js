@@ -13,20 +13,34 @@ class SignInFormComponent extends Component {
         super(props)
         this.state = {
         }
+
+        this.props.showBreadCrumbs(false);
+        this.setUserSettings(null)
     }
 
     setUserSettings = (result) => {
-        let userSession = result.data
-        localStorage.setItem(
-            'userSession',
-            JSON.stringify({
-                userSession
+        let userSession
+        if (result !== null) {
+            userSession = result.data
+            localStorage.setItem(
+                'userSession',
+                JSON.stringify({
+                    userSession
+                })
+            );
+            this.setState({
+                userState: userState()
             })
-        );
-        this.setState({
-            userState: userState()
-        })
-        this.props.callbackFromParent();
+            this.props.callbackFromParent();
+        } else {
+            localStorage.removeItem('userSession')
+            this.setState({
+                userState: userState()
+            });
+            this.props.callbackFromParent();
+        }
+
+
     }
 
     render() {
@@ -73,20 +87,19 @@ class SignInFormComponent extends Component {
 
         if (!this.state.userState) {
             return (
-                <div>
+                <div className="col-md-6 col-lg-4 col-lx-3 mb-4">
                     <CardTitle>
                         <FormattedMessage
                             id="globals_label.log_in"
                             defaultMessage="*translation missing*"
                         />
                     </CardTitle>
-                    <br />
                     <TheForm />
                 </div >
             )
         } else {
             return (
-                <Redirect to={{ pathname: "/" }} />
+                <Redirect to={{ pathname: "/search" }} />
             )
         }
 

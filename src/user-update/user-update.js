@@ -48,6 +48,8 @@ class UserUpdate extends Component {
             gotError: false,
             errorMsg: '',
         }
+
+        this.props.showBreadCrumbs(true);
     }
 
 
@@ -60,9 +62,9 @@ class UserUpdate extends Component {
     }
 
 
-    componentWillMount() {
-        if (this.props.match.params.id) {
-            fetchUser(this.props.match.params.id).then(response => {
+    componentDidMount() {
+        if (this.props.match.params.user_id) {
+            fetchUser(this.props.match.params.user_id).then(response => {
                 this.setState({
                     user: response.data
                 })
@@ -102,8 +104,8 @@ class UserUpdate extends Component {
                 {
                     label: yes,
                     onClick: () =>
-                        deleteUser(this.props.match.params.id).then(response => {
-                            this.props.history.push('/')
+                        deleteUser(this.props.match.params.user_id).then(response => {
+                            this.props.history.push('/system/user_search')
                         }).catch(response => {
                             alert(alert_error)
                         })
@@ -166,12 +168,12 @@ class UserUpdate extends Component {
                     setSubmitting
                 }
             ) => {
-                updateUser(cleanValues(values), this.props.match.params.id).then(
+                updateUser(cleanValues(values), this.props.match.params.user_id).then(
                     user => {
                         setSubmitting(false);
                         resetForm();
 
-                        fetchUser(this.props.match.params.id).then(response => {
+                        fetchUser(this.props.match.params.user_id).then(response => {
                             this.setState({
                                 user: response.data,
                                 didUpdate: true
@@ -185,14 +187,14 @@ class UserUpdate extends Component {
                         this.setState({
                             didUpdate: false,
                             gotError: true,
-                            errorMsg: errors.response.statusText
+                            errorMsg: errors
                         })
                     }
                 );
             }, enableReinitialize: true
         })(UserUpdateForm);
         return (
-            <div>
+            <div className="col-md-12 col-lg-8 col-lx-6 mb-4">
                 <div className="d-flex">
                     <div className="mr-auto">
                         <CardTitle>
@@ -204,7 +206,7 @@ class UserUpdate extends Component {
                     </div>
                     <div>
                         {this.state.userState && this.state.userState.isAdmin &&
-                            <button onClick={this.confirmDeletion} className="btn btn-sm bg-secondary text-white">
+                            <button onClick={this.confirmDeletion} className="btn btn-sm btn-secondary">
                                 <FormattedMessage
                                     id="globals_btn.delete"
                                     defaultMessage="*translation missing*"
@@ -212,7 +214,6 @@ class UserUpdate extends Component {
                             </button>}
                     </div>
                 </div>
-                <br />
                 <TheForm
                     username={this.state.user.username}
                     email={this.state.user.email}

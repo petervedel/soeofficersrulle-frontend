@@ -6,7 +6,7 @@ import ReactTable from "react-table";
 import { UserSearchForm } from "./search-form"
 import "react-table/react-table.css";
 import 'react-datepicker/dist/react-datepicker.css'
-import { FormattedMessage } from 'react-intl'
+import { injectIntl, FormattedMessage, intlShape } from 'react-intl'
 
 
 class UserSearchFormComponent extends Component {
@@ -51,6 +51,8 @@ class UserSearchFormComponent extends Component {
             username: '',
             email: '',
         };
+
+        this.props.showBreadCrumbs(false);
     }
 
     render() {
@@ -98,25 +100,29 @@ class UserSearchFormComponent extends Component {
             },
             enableReinitialization: true,
         })(UserSearchForm);
-
+        const intl = this.props.intl;
+        const rows = intl.formatMessage({
+            id: "globals_table.rows",
+            defaultMessage: "*translation missing*"
+        });
         return (
             <div>
+                <div className="col-md-12 col-lg-8 col-lx-6 mb-4">
                 <CardTitle>
                     <FormattedMessage
-                        id="admin.search_user"
+                        id="user_detail.user_search"
                         defaultMessage="*translation missing*"
                     />
                 </CardTitle>
-                <br />
                 <TheForm username={this.state.username}
                     email={this.state.email} />
-                <br />
+                </div>
                 <ReactTable minRows="0"
                     data={this.state.data}
                     getTdProps={(state, rowInfo, column, instance) => {
                         return {
                             onClick: (e, handleOriginal) => {
-                                this.props.history.push(`/user/${rowInfo.original.id}`)
+                                this.props.history.push(`/system/user_search/user/${rowInfo.original.id}`)
                                 if (handleOriginal) {
                                     handleOriginal()
                                 }
@@ -125,11 +131,53 @@ class UserSearchFormComponent extends Component {
                     }}
                     columns={this.state.columns}
                     defaultPageSize={50}
-                    className="-striped -highlight"
+                    className=""
+                    previousText={
+                        <FormattedMessage
+                            id="globals_table.previous"
+                            defaultMessage="*translation missing*"
+                        />
+                    }
+                    nextText={
+                        <FormattedMessage
+                            id="globals_table.next"
+                            defaultMessage="*translation missing*"
+                        />
+                    }
+                    loadingText={
+                        <FormattedMessage
+                            id="globals.loading"
+                            defaultMessage="*translation missing*"
+                        />
+                    }
+                    noDataText={
+                        <FormattedMessage
+                            id="globals_table.no_rows"
+                            defaultMessage="*translation missing*"
+                        />
+                    }
+                    pageText={
+                        <FormattedMessage
+                            id="globals_table.page"
+                            defaultMessage="*translation missing*"
+                        />
+                    }
+                    ofText={
+                        <FormattedMessage
+                            id="globals_table.of"
+                            defaultMessage="*translation missing*"
+                        />
+                    }
+                    rowsText={rows}
                 />
             </div>
         )
     }
 }
 
-export default UserSearchFormComponent;
+UserSearchFormComponent.propTypes = {
+    intl: intlShape.isRequired
+};
+UserSearchFormComponent = injectIntl(UserSearchFormComponent);
+
+export default UserSearchFormComponent

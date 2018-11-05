@@ -1,0 +1,492 @@
+// --------------------- BOOTSTRAP THEMING ---------------------
+// $web-fonts-protocol: "https";
+
+// @import "node_modules/sass-web-fonts/web-fonts";
+
+// @import url(web-fonts-url("Karla"));
+
+$theme-colors: ("primary": #107495, "secondary": #e9e6dc);
+
+$font-family-sans-serif: "Arial", sans-serif;
+
+$input-bg: #f5eedd;
+$input-border-color: #eee0bf;
+
+$input-focus-bg: #f9f9f9;
+$input-focus-border-color: #a4998e;
+
+$input-focus-box-shadow: none;
+$custom-select-focus-box-shadow: none;
+
+// --------------------- IMPORT BOOTSTRAP ---------------------
+@import "node_modules/bootstrap/scss/bootstrap";
+
+// --------------------- MY STYLES ---------------------
+
+@font-face {
+    font-family: 'IntroRustG';
+    font-style: normal;
+    font-weight: 400;
+    src: local("introrustg"), url(/introrustg.otf) format("opentype");
+}
+
+.Select-control .Select-placeholder {
+    background-color: #f5eedd;
+    color: #888888;
+}
+
+.Select .is-focused {
+    outline: none;
+    box-shadow: none;
+}
+
+.Select-value, .VirtualSelectGrid, .ReactVirtualized__Grid__innerScrollContainer .VirtualizedSelectFocusedOption {
+    background-color: #f5eedd;
+}
+
+.VirtualizedSelectOption:hover {
+    background-color: #fbf5ea;
+}
+
+.VirtualizedSelectSelectedOption {
+    background-color: #f9f9f9;
+}
+
+body .Select-control {
+    border-color: #eee0bf;
+}
+
+.Select.is-open .Select-placeholder {
+    background-color: #f9f9f9;
+}
+
+.react-datepicker__triangle {
+    display: none;
+}
+
+.react-datepicker-popper {
+    margin-top: 2px !important;
+}
+
+.react-datepicker-popper .react-datepicker {
+    border: 1px solid #dfe3e9;
+}
+
+.react-datepicker__month-container .react-datepicker__header {
+    border-bottom: 1px solid #dfe3e9;
+}
+
+.react-datepicker .react-datepicker__header {
+    background-color: #ffffff;
+}
+
+.react-datepicker * {
+    font-family: "Karla", sans-serif;
+    color: #354052;
+}
+
+.react-datepicker .react-datepicker__current-month {
+    font-size: 0.88rem;
+}
+
+.react-datepicker .react-datepicker__day-name {
+    font-size: 0.9em;
+    color: rgba(53, 64, 82, 0.5);
+}
+
+.react-datepicker__week .react-datepicker__day--selected {
+    background-color: #107495 !important;
+    border-radius: 100px;
+}
+
+.react-datepicker__week .react-datepicker__day--keyboard-selected {
+    border-radius: 100px;
+    background-color: #f0f0f0;
+    color: #354052;
+}
+
+.react-datepicker__week .react-datepicker__day:hover {
+    border-radius: 100px;
+    background-color: #f0f0f0;
+}
+
+.ReactTable .rt-table .rt-thead {
+    background-color: #f0eee8;
+    overflow-y: hidden;
+    color: #888888;
+}
+
+.ReactTable .-pagination {
+    background-color: #f0eee8;
+}
+
+.ReactTable {
+    border-radius: 0.25rem;
+    font-size: 14px;
+}
+
+.ReactTable .-pageInfo {
+    color: #888888;
+}
+
+.ReactTable .rt-thead.-header {
+    border-radius: 0.25rem 0.25rem 0 0;
+}
+
+.rt-th, .rt-td {
+    text-align: left;
+    margin-left: 10px;
+}
+
+.rt-tr .rt-td {
+    color: #222222;
+    font-size: 15px;
+}
+
+.rt-tbody {
+    height: 100px;
+    justify-content: flex-start;
+    flex: 1 1 auto;
+    position: relative; /* need this to position inner content */
+    overflow-y: auto;
+}
+
+.rt-tr-group {
+    min-height: 35px;
+}
+
+.rt-thead {
+    flex: 0 0 auto;
+}
+
+.navbar {
+    background-color: #f0eee8;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-light .navbar-brand span {
+    font-family: 'IntroRustG';
+    color: #514942;
+    font-size: 26px;
+    line-height: 26px;
+    align-self: center;
+}
+
+h1, .card-title span {
+    font-family: "IntroRustG";
+    color: #514942;
+    font-size: 40px;
+}
+
+.navbar-brand img {
+    align-self: center;
+}
+
+.nav-link span {
+    font-size: 18px;
+}
+
+html, body, .app-container, .card, .dropdown-menu, .dropdown-item, .dropdown-item:hover {
+    background-color: #faf9f5;
+}
+
+.dropdown-item {
+    color: #107495;
+}
+
+a:hover, .dropdown-item:hover {
+    color: #272725;
+}
+
+a:active {
+    color: #272725;
+}
+
+.btn-secondary span {
+    color: #514942;
+}
+
+.btn-primary span {
+    color: #fff;
+}
+
+.app-container {
+    min-height: calc(100vh - 126px);
+    padding: 20px 15px 45px 15px;
+}
+
+.ReactTable {
+    height: 500px;
+}
+
+.relationsSearchTable {
+    height: 300px;
+}
+
+.ReactTable .rt-thead {
+    overflow-y: scroll;
+}
+
+body .ReactTable .-pagination .-btn {
+    background-color: #107495;
+    color: white;
+}
+
+body .ReactTable .-pagination .-btn:disabled {
+    background-color: #e9e6dc;
+    color: #514942;
+}
+
+body .ReactTable .-pagination .-btn:not([disabled]):hover {
+    color: #fff;
+    background-color: #0c5972;
+    border-color: #0b5067;
+}
+
+body .ReactTable .rt-tbody, body .ReactTable .rt-noData {
+    background-color: #f9f9f9;
+}
+
+.react-datepicker__day--selected {
+    background-color: #007bff !important;
+}
+
+.hide-signin-form {
+    display: none;
+}
+
+.select-is-invalid {
+    border-color: #dc3545 !important;
+}
+
+.react-datepicker-wrapper, .react-datepicker__input-container {
+    width: 100%;
+}
+
+.rt-tr-group {
+    flex: 0 !important;
+}
+
+/* checkbox styling begins */
+.checkbox-container {
+    display: flex;
+    justify-content: left;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.checkbox-container span {
+    font-family: "Karla", sans-serif;
+    color: #354052;
+    font-size: 16px;
+}
+
+/* Hide the browser's default checkbox */
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #f5eedd;
+    border: 1px solid #eee0bf;
+    border-radius: 8px;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox-container:hover input ~ .checkmark {
+    background-color: #fbf5ea;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox-container input:checked ~ .checkmark {
+    background-color: #107495;
+    border: 1px solid #107495;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox-container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/* checkbox styling ends */
+
+/* switch styling begins */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f5eedd;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #107495;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #f5eedd;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.switch-label {
+    margin-bottom: .5rem;
+}
+
+/* switch styling ends */
+
+body .dropdown-item .nav-link span {
+    font-size: 16px;
+}
+
+.breadcrumbs-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .relation-in-clip {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1em;
+    }
+
+    #myBreadcrumb {
+        margin-bottom: 1em;
+        height: 31px;
+    }
+}
+
+.my-relations-link span {
+    font-size: 16px;
+    padding: 0;
+}
+
+.my-clear-fix {
+    justify-content: flex-end;
+}
+
+.footer > .footer-container {
+    padding-right: 15px;
+    padding-left: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    font-size: 0.9em;
+    background-color: #f5f5f5;
+}
+
+@media only screen and (max-width: 500px) {
+    .footer > .footer-container {
+        padding-right: 15px;
+        padding-left: 15px;
+        padding-bottom: 15px;
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+
+    .footer {
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        height: 95px;
+        line-height: 40px;
+        font-size: 0.75em;
+        background-color: #f5f5f5;
+    }
+}
+
+body .navbar {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.react-datepicker-popper {
+    visibility: hidden;
+}

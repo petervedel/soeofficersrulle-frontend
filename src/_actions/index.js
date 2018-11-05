@@ -64,13 +64,16 @@ const buildPersonCreateValues = (values) => {
 export function fetchPersons() {
     return axios.get(`${API_ROOT}/person/all`, { auth })
 }
-export function fetchPerson(userId, callback) {
+export function fetchPerson(userId) {
     return axios.get(`${API_ROOT}/person/${userId}`, { auth })
+}
+export function fetchRelations(userId) {
+    return axios.get(`${API_ROOT}/person/${userId}/relations`, { auth })
 }
 export function fetchRanks() {
     return axios.get(`${API_ROOT}/rank/all`, { auth })
 }
-export function fetchUser(userId, callback) {
+export function fetchUser(userId) {
     return axios.get(`${API_ROOT}/user/${userId}`, { auth })
 }
 
@@ -110,7 +113,7 @@ export function fetchSearch(values, isLoggedIn) {
         return axios.post(`${API_ROOT}/person/search`, values, { auth })
     }
 }
-export function fetchUserSearch(values, callback) {
+export function fetchUserSearch(values) {
     return axios.post(`${API_ROOT}/user/search`, values, { auth })
 }
 
@@ -118,8 +121,16 @@ export function createPromotion(values, id) {
     return axios.post(`${API_ROOT}/officer/${id}/promote`, values, { auth })
 }
 
+export function createRelation(values) {
+    return axios.post(`${API_ROOT}/relations`, values, { auth })
+}
+
 export function fetchActiveOfficers(values) {
     return axios.post(`${API_ROOT}/officer/activeOnDate`, values, { auth })
+}
+
+export function fetchActiveRanksOnDate(values) {
+    return axios.post(`${API_ROOT}/rank/all/active`, values, { auth })
 }
 
 export function fetchPromotions(id) {
@@ -160,6 +171,10 @@ export function updatePromotion(values, id) {
     return axios.put(`${API_ROOT}/promotion/${id}`, values, { auth })
 }
 
+export function updateRelation(values, id) {
+    return axios.put(`${API_ROOT}/relations/${id}`, values, { auth })
+}
+
 // _____________________ DELETEs _____________________
 export function deleteUser(id) {
     return axios.delete(`${API_ROOT}/user/${id}`, { auth })
@@ -175,4 +190,8 @@ export function deleteOfficer(id) {
 
 export function deletePromotion(id) {
     return axios.delete(`${API_ROOT}/promotion/${id}`, { auth })
+}
+
+export function deleteRelation(id) {
+    return axios.delete(`${API_ROOT}/relations/${id}`, { auth })
 }

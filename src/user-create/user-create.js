@@ -42,6 +42,8 @@ class UserCreate extends Component {
             ],
             redirect: false
         }
+
+        this.props.showBreadCrumbs(false);
     }
 
     render() {
@@ -148,17 +150,16 @@ class UserCreate extends Component {
             }, enableReinitialize: true
         })(UserCreateForm)
         if (this.state.redirect) {
-            return <Redirect to={{ pathname: "/user/" + this.state.user.id }} />
+            return <Redirect to={{ pathname: "/system/user_search/user/" + this.state.user.id }} />
         }
         return (
-            <div>
+            <div className="col-md-12 col-lg-8 col-lx-6 mb-4">
                 <CardTitle>
                     <FormattedMessage
                         id="user_create.create"
                         defaultMessage="*translation missing*"
                     />
                 </CardTitle>
-                <br />
                 <TheForm
                     username={this.state.user.username}
                     email={this.state.user.email}

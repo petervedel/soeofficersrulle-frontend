@@ -36,20 +36,6 @@ export const PersonCreateForm = ({
             <div className="form-group">
                 <label>
                     <FormattedMessage
-                        id="person.given_name"
-                        defaultMessage="*translation missing*"
-                    />
-                </label>
-                <Field
-                    type="text"
-                    name="givenName"
-                    className={`form-control ${touched.givenName && errors.givenName ? 'is-invalid' : ''}`}
-                />
-                {touched.givenName && errors.givenName && <p className="invalid-feedback">{errors.givenName}</p>}
-            </div>
-            <div className="form-group">
-                <label>
-                    <FormattedMessage
                         id="person.surname"
                         defaultMessage="*translation missing*"
                     />
@@ -64,6 +50,20 @@ export const PersonCreateForm = ({
             <div className="form-group">
                 <label>
                     <FormattedMessage
+                        id="person.given_name"
+                        defaultMessage="*translation missing*"
+                    />
+                </label>
+                <Field
+                    type="text"
+                    name="givenName"
+                    className={`form-control ${touched.givenName && errors.givenName ? 'is-invalid' : ''}`}
+                />
+                {touched.givenName && errors.givenName && <p className="invalid-feedback">{errors.givenName}</p>}
+            </div>
+            <div className="form-group">
+                <label>
+                    <FormattedMessage
                         id="person.born"
                         defaultMessage="*translation missing*"
                     />
@@ -72,8 +72,9 @@ export const PersonCreateForm = ({
                     name="dateOfBirth"
                     selected={values.dateOfBirth ? moment(values.dateOfBirth, "DD/MM/YYYY") : null}
                     onChange={text => moment(text).isValid() ? setFieldValue('dateOfBirth', moment(text).format("DD/MM/YYYY")) : setFieldValue('dateOfBirth', null)}
-                    placeholderText="DD/MM/YYYY"
-                    dateFormat="DD/MM/YYYY"
+                    placeholderText="D/M YYYY"
+                    dateFormat="D/M YYYY"
+                    autoComplete="off"
                     className={`form-control ${touched.dateOfBirth && errors.dateOfBirth ? 'is-invalid' : ''}`}
                 />
                 {touched.dateOfBirth && errors.dateOfBirth && <p className="invalid-feedback d-inline">{errors.dateOfBirth}</p>}
@@ -89,18 +90,18 @@ export const PersonCreateForm = ({
                     {
                         label:
                             <FormattedMessage
-                                id="person.gender_man"
+                                id="person.gender_male"
                                 defaultMessage="*translation missing*"
                             />,
-                        gender: "Mand"
+                        gender: "Male"
                     },
                     {
                         label:
                             <FormattedMessage
-                                id="person.gender_woman"
+                                id="person.gender_female"
                                 defaultMessage="*translation missing*"
                             />,
-                        gender: "Kvinde"
+                        gender: "Female"
                     },
                     {
                         label:
@@ -108,9 +109,15 @@ export const PersonCreateForm = ({
                                 id="person.gender_unknown"
                                 defaultMessage="*translation missing*"
                             />,
-                        gender: "Ukendt"
+                        gender: "Unknown"
                     }
                 ]}
+                    placeholder={
+                        <FormattedMessage
+                            id="globals_label.select_placeholder"
+                            defaultMessage="*translation missing*"
+                        />
+                    }
                     name="gender"
                     value={values.gender}
                     onChange={value => setFieldValue('gender', value)}
@@ -130,27 +137,29 @@ export const PersonCreateForm = ({
                     name="dateOfDeath"
                     selected={values.dateOfDeath ? moment(values.dateOfDeath, "DD/MM/YYYY") : null}
                     onChange={text => moment(text).isValid() ? setFieldValue('dateOfDeath', moment(text).format("DD/MM/YYYY")) : setFieldValue('dateOfDeath', null)}
-                    dateFormat="DD/MM/YYYY"
-                    placeholderText="DD/MM/YYYY"
+                    dateFormat="D/M YYYY"
+                    placeholderText="D/M YYYY"
+                    autoComplete="off"
                     className={`form-control ${touched.dateOfDeath && errors.dateOfDeath ? 'is-invalid' : ''}`}
                 />
                 {touched.dateOfDeath && errors.dateOfDeath && <p className="invalid-feedback d-inline">{errors.dateOfDeath}</p>}
             </div>
-            <div>
-                <label>
+            <div className="form-group">
+                <div className="switch-label">
                     <FormattedMessage
                         id="globals_form.is_officer"
                         defaultMessage="*translation missing*"
                     />
-                </label><br />
-                <input
-                    id="checkbox"
-                    type="checkbox"
-                    onClick={text => setFieldValue("isOfficer", !values.isOfficer)}
-                />
-
+                </div>
+                <label className="switch">
+                    <input
+                        type="checkbox"
+                        id="checkbox"
+                        onClick={text => setFieldValue("isOfficer", !values.isOfficer)}
+                    />
+                    <span className="slider round"></span>
+                </label>
             </div>
-            <br />
             <div id="officerDetails" className={values.isOfficer ? "d-inline" : "d-none"} >
                 <div className="form-group">
                     <label>
@@ -193,25 +202,12 @@ export const PersonCreateForm = ({
                         name="appointedUntil"
                         selected={values.appointedUntil ? moment(values.appointedUntil, "DD/MM/YYYY") : null}
                         onChange={text => moment(text).isValid() ? setFieldValue('appointedUntil', moment(text).format("DD/MM/YYYY")) : setFieldValue('appointedUntil', null)}
-                        dateFormat="DD/MM/YYYY"
-                        placeholderText="DD/MM/YYYY"
+                        dateFormat="D/M YYYY"
+                        placeholderText="D/M YYYY"
+                        autoComplete="off"
                         className={`form-control ${touched.appointedUntil && errors.appointedUntil ? 'is-invalid' : ''}`}
                     />
                     {touched.appointedUntil && errors.appointedUntil && <p className="invalid-feedback d-inline">{errors.appointedUntil}</p>}
-                </div>
-                <div className="form-group">
-                    <label>
-                        <FormattedMessage
-                            id="officer.cause_of_termination"
-                            defaultMessage="*translation missing*"
-                        />
-                    </label>
-                    <VirtualizedSelect options={values.terminationCauses}
-                        name="terminationCause"
-                        value={values.terminationCause}
-                        onChange={value => setFieldValue('terminationCause', value)}
-                    />
-                    {touched.terminationCause && errors.terminationCause && <p className="invalid-feedback">{errors.terminationCause}</p>}
                 </div>
             </div>
             <button disabled={isSubmitting} className="btn btn-primary">

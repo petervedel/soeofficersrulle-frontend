@@ -11,17 +11,29 @@ export default {
         "globals_btn.delete": "Slet",
         "globals_btn.search": "Søg",
         "globals_btn.update": "Opdater",
-        "globals_btn.promote": "Forfrem",
+        "globals_btn.promote": "Forfremmelse",
         "globals_btn.create": "Opret",
+        "globals_btn.relations": "Relationer",
+        "globals_btn.clear_copied": "Ryd",
 
         "globals_label.log_in": "Log ind",
         "globals_label.log_out": "Log ud",
+        "globals_label.home": "Hjem",
         "globals_label.search": "Søg",
         "globals_label.date": "Dato",
         "globals_label.actions": "Handlinger",
         "globals_label.administrator": "Administrator",
         "globals_label.contributor": "Bidragsyder",
         "globals_label.priviledged_reader": "Priviligeret læser",
+        "globals_label.select_placeholder": "Vælg...",
+        "globals_label.details": "Detaljer",
+        "globals_label.user_details": "Bruger detaljer",
+        "globals_label.person_details": "Person detaljer",
+        "globals_label.officer_details": "Officer detaljer",
+        "globals_label.officer": "Officer",
+        "globals_label.update_relations": "Opdater relationer",
+        "globals_label.copied_person": "Kopieret person: ",
+        "globals_label.copied_person_missing": "Venligst kopiere en relation",
 
         "globals_confirm.yes": "Ja",
         "globals_confirm.no": "Nej",
@@ -29,7 +41,7 @@ export default {
         "globals_confirm.are_you_sure": "Er du sikker på, at du vil slette:",
         "globals_confirm.error": "Blev ikke slettet",
 
-        "globals_nav.admin": "Admin",
+        "globals_nav.system": "System",
         "globals_nav.create": "Tilføj",
         "globals_nav.officer_corps": "Officerskorps",
         "globals_nav.lang_switcher": "Sprog",
@@ -46,11 +58,12 @@ export default {
         "globals_search.success": "Data blev fundet",
         "globals_search.error": "Fejl opstod",
 
-        "globals_form.is_officer": "Officer?",
+        "globals_form.is_officer": "Er officer?",
         "globals_form_validation.given_name": "Fornavn er påkrævet",
         "globals_form_validation.surname": "Efternavn er påkrævet",
         "globals_form_validation.born": "Fødselsdato er påkrævet",
         "globals_form_validation.gender": "Køn er påkrævet",
+        "globals_form_validation.date": "Dato påkrævet",
         "globals_form_validation.tordenskjold_nr": "Udfyld venligst NielsJuel-nr eller Tordenskjold-nr",
         "globals_form_validation.nielsJuel_nr": "Udfyld venligst NielsJuel-nr eller Tordenskjold-nr",
         "globals_form_validation.username": "Brugernavn er påkrævet",
@@ -70,13 +83,16 @@ export default {
         // PERSON RELATED
         "person.given_name": "Fornavn",
         "person.surname": "Efternavn",
-        "person.full_name": "Fulde navn",
+        "person.full_name": "Efternavn, fornavn",
         "person.born": "Født",
         "person.gender": "Køn",
-        "person.gender_man": "Mand",
-        "person.gender_woman": "Kvinde",
+        "person.gender_male": "Mand",
+        "person.gender_female": "Kvinde",
         "person.gender_unknown": "Ukendt",
         "person.died": "Død",
+        "person.father": "Fader",
+        "person.mother": "Moder",
+        "person.children": "Børn",
 
         // OFFICER RELATED
         "officer.tordenskjold_nr": "Tordenskjold-nr",
@@ -102,16 +118,16 @@ export default {
 
         // ______________________________ PAGES ______________________________
         // ADMIN PAGE
-        "admin.user_actions": "Bruger handlinger",
-        "admin.create_user": "Opret bruger",
-        "admin.search_user": "Søg bruger",
-        "admin.file_upload_actions": "Indlæs fil",
-        "admin.file_upload_actions_description": "Vigtigt: hver linje i CSV filen er et person-objekt og skal følge denne skabelon;",
-        "admin.file_upload_actions_description_example": "fornavn, efternavn, fødselsdato (DD/MM/ÅÅÅÅ), køn, dødsdag (DD/MM/ÅÅÅÅ)",
-        "admin.upload_csv_file": "Indlæs CSV fil",
-        "admin.uploading_file_values": "Indlæser data...",
-        "admin.uploading_success": "Indlæsning udført!",
-        "admin.uploading_error": "Indlæsning fejlede",
+        "system.user_actions": "Bruger handlinger",
+        "system.create_user": "Opret bruger",
+        "system.user_search": "Søg bruger",
+        "system.file_upload_actions": "Indlæs fil",
+        "system.file_upload_actions_description": "Vigtigt: hver linje i CSV filen er et person-objekt og skal følge denne skabelon;",
+        "system.file_upload_actions_description_example": "efternavn, fornavn, fødselsdato (DD/MM/ÅÅÅÅ), køn, dødsdag (DD/MM/ÅÅÅÅ)",
+        "system.upload_csv_file": "Indlæs CSV fil",
+        "system.uploading_file_values": "Indlæser data...",
+        "system.uploading_success": "Indlæsning udført!",
+        "system.uploading_error": "Indlæsning fejlede",
 
         // LOGIN PAGE
         "login_form.login_error": "Forkert brugernavn eller kodeord",
@@ -122,7 +138,7 @@ export default {
         "officer_search_form_validation.value": "En indtastning er påkrævet",
 
         // PERSON CREATE PAGE
-        "person_create.title": "Opret person eller officer",
+        "person_create.title": "Tilføj til systemet",
         "person_create_form.create": "Opret person",
 
         // PERSON DETAIL PAGE
@@ -163,6 +179,21 @@ export default {
         "promotion_update.title": "Opdater forfremmelse",
         "promotion_update.note": "Opdater forfremmelse for:",
 
+        // RELATION CREATE
+        "relation_create.person": "Person",
+        "relation_create.is_of_relation": "Er af relation",
+        "relation_create.to_person": "Til person",
+        "relation_create.title": "Opret en relation",
+        "relation_create.parent": "Forældre",
+        "relation_create.father": "Fader",
+        "relation_create.mother": "Moder",
+        "relation_create.unknown": "Ukendt",
+        "relation_create.parents": "Forældre",
+        "relation_create.child": "Barn",
+
+        // RELATION UPDATE
+        "relation_update.title": "Opdater relation",
+
         // USER CREATE
         "user_create.create": "Opret bruger",
 
@@ -184,17 +215,29 @@ export default {
         "globals_btn.delete": "Delete",
         "globals_btn.search": "Search",
         "globals_btn.update": "Update",
-        "globals_btn.promote": "Promote",
+        "globals_btn.promote": "Promotion",
         "globals_btn.create": "Create",
+        "globals_btn.relations": "Relations",
+        "globals_btn.clear_copied": "Clear",
 
         "globals_label.log_in": "Log in",
         "globals_label.log_out": "Log out",
+        "globals_label.home": "Home",
         "globals_label.search": "Search",
         "globals_label.date": "Date",
         "globals_label.actions": "Actions",
         "globals_label.administrator": "Administrator",
         "globals_label.contributor": "Contributor",
         "globals_label.priviledged_reader": "Priviledged reader",
+        "globals_label.select_placeholder": "Select...",
+        "globals_label.details": "Details",
+        "globals_label.user_details": "User details",
+        "globals_label.person_details": "Person details",
+        "globals_label.officer_details": "Officer details",
+        "globals_label.officer": "Officer",
+        "globals_label.update_relations": "Update relations",
+        "globals_label.copied_person": "Copied person: ",
+        "globals_label.copied_person_missing": "Please copy a relation",
 
         "globals_confirm.yes": "Yes",
         "globals_confirm.no": "No",
@@ -202,7 +245,7 @@ export default {
         "globals_confirm.are_you_sure": "Sure you want to delete:",
         "globals_confirm.error": "Could not delete",
 
-        "globals_nav.admin": "Admin",
+        "globals_nav.system": "System",
         "globals_nav.create": "Create",
         "globals_nav.officer_corps": "Officer corps",
         "globals_nav.lang_switcher": "Language",
@@ -218,7 +261,7 @@ export default {
         "globals_search.success": "Records found",
         "globals_search.error": "An error has occurred",
 
-        "globals_form.is_officer": "Is officer?",
+        "globals_form.is_officer": "Is an officer?",
         "globals_form_validation.given_name": "Given name is required",
         "globals_form_validation.surname": "Surname is required",
         "globals_form_validation.born": "Date of birth is required",
@@ -243,13 +286,16 @@ export default {
         // PERSON RELATED
         "person.given_name": "Given name",
         "person.surname": "Surname",
-        "person.full_name": "Full name",
+        "person.full_name": "Surname, given name",
         "person.born": "Born",
         "person.gender": "Gender",
-        "person.gender_man": "Man",
-        "person.gender_woman": "Woman",
+        "person.gender_male": "Male",
+        "person.gender_female": "Female",
         "person.gender_unknown": "Unknown",
         "person.died": "Died",
+        "person.father": "Father",
+        "person.mother": "Mother",
+        "person.children": "Children",
 
         // OFFICER RELATED
         "officer.tordenskjold_nr": "Tordenskjold-nr",
@@ -274,16 +320,16 @@ export default {
 
         // ______________________________ PAGES ______________________________
         // ADMIN PAGE
-        "admin.user_actions": "User actions",
-        "admin.create_user": "Create user",
-        "admin.search_user": "Search user",
-        "admin.file_upload_actions": "Upload file",
-        "admin.file_upload_actions_description": "Note: each line in the CSV is a person-object and should follow this scheme;",
-        "admin.file_upload_actions_description_example": "given name, surname, date of birth (DD/MM/YYYY), gender, date of death (DD/MM/YYYY)",
-        "admin.upload_csv_file": "Upload CSV file",
-        "admin.uploading_file_values": "Uploading data...",
-        "admin.uploading_success": "Uploading complete!",
-        "admin.uploading_error": "Uploading failed",
+        "system.user_actions": "User actions",
+        "system.create_user": "Create user",
+        "system.user_search": "Search user",
+        "system.file_upload_actions": "Upload file",
+        "system.file_upload_actions_description": "Note: each line in the CSV is a person-object and should follow this scheme;",
+        "system.file_upload_actions_description_example": "surname, given name, date of birth (DD/MM/YYYY), gender, date of death (DD/MM/YYYY)",
+        "system.upload_csv_file": "Upload CSV file",
+        "system.uploading_file_values": "Uploading data...",
+        "system.uploading_success": "Uploading complete!",
+        "system.uploading_error": "Uploading failed",
 
         // LOGIN PAGE
         "login_form.login_error": "Incorrect username or password",
@@ -294,7 +340,7 @@ export default {
         "officer_search_form_validation.value": "Please provide some input",
 
         // PERSON CREATE PAGE
-        "person_create.title": "Create person or officer",
+        "person_create.title": "Add to system",
         "person_create_form.create": "Create person",
 
         // PERSON DETAIL PAGE
@@ -335,6 +381,21 @@ export default {
         "promotion_update.title": "Update promotion",
         "promotion_update.note": "Update this promotion:",
 
+        // RELATION CREATE
+        "relation_create.person": "Person",
+        "relation_create.is_of_relation": "Is of relation",
+        "relation_create.to_person": "To person",
+        "relation_create.title": "Create a relation",
+        "relation_create.parent": "Parent",
+        "relation_create.father": "Father",
+        "relation_create.mother": "Mother",
+        "relation_create.unknown": "Unknown",
+        "relation_create.parents": "Parents",
+        "relation_create.child": "Child",
+
+        // RELATION UPDATE
+        "relation_update.title": "Update relation",
+        
         // USER CREATE
         "user_create.create": "Create user",
 

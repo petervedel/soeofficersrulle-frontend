@@ -30,7 +30,9 @@ export const PromotionForm = ({
                     name="dateOfPromotion"
                     selected={values.dateOfPromotion ? moment(values.dateOfPromotion, "DD/MM/YYYY") : null}
                     onChange={text => moment(text).isValid() ? setFieldValue('dateOfPromotion', moment(text).format("DD/MM/YYYY")) : setFieldValue('dateOfPromotion', null)}
-                    dateFormat="DD/MM/YYYY"
+                    dateFormat="D/M YYYY"
+                    placeholderText="D/M YYYY"
+                    autoComplete="off"
                     className={`form-control ${touched.dateOfPromotion && errors.dateOfPromotion ? 'is-invalid' : ''}`}
                 />
                 {touched.dateOfPromotion && errors.dateOfPromotion && <p className="invalid-feedback d-inline">{errors.dateOfPromotion}</p>}

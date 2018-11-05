@@ -16,10 +16,12 @@ class PromotionUpdate extends Component {
             promotionToUpdate: {},
             rankName: ''
         }
+
+        this.props.showBreadCrumbs(true);
     }
 
     setPromotionState() {
-        fetchPromotions(this.props.match.params.id).then(response => {
+        fetchPromotions(this.props.match.params.officer_id).then(response => {
             _.map(response.data, promotion => {
                 if (JSON.stringify(promotion.id) === this.props.match.params.promoId) {
                     this.setState({
@@ -31,7 +33,7 @@ class PromotionUpdate extends Component {
         })
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.setPromotionState()
     }
 
@@ -80,7 +82,7 @@ class PromotionUpdate extends Component {
         })(PromotionForm);
         if (this.state.promotionToUpdate !== {}) {
             return (
-                <div>
+                <div className="col-md-12 col-lg-8 col-lx-6">
                     <CardTitle>
                         <FormattedMessage
                             id="promotion_update.title"

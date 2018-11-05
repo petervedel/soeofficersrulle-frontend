@@ -20,74 +20,80 @@ const setValid = () => {
 }
 
 const genderLabel = (gender) => {
-    if (gender === "Mand") {
-        return { label : <FormattedMessage
-            id="person.gender_man"
-            defaultMessage="*translation missing*"
-        />
-            , gender: "Mand" }
-    } else if (gender === "Kvinde") {
-        return { label : <FormattedMessage
-            id="person.gender_woman"
-            defaultMessage="*translation missing*"
-        />,
-            gender: "Kvinde" }
-    } else if (gender === "Ukendt") {
-        return { label : <FormattedMessage
-            id="person.gender_unknown"
-            defaultMessage="*translation missing*"
-        />
-            , gender: "Ukendt" }
+    if (gender === "Male") {
+        return {
+            label: <FormattedMessage
+                id="person.gender_male"
+                defaultMessage="*translation missing*"
+            />
+            , gender: "Male"
+        }
+    } else if (gender === "Female") {
+        return {
+            label: <FormattedMessage
+                id="person.gender_female"
+                defaultMessage="*translation missing*"
+            />,
+            gender: "Female"
+        }
+    } else if (gender === "Unknown") {
+        return {
+            label: <FormattedMessage
+                id="person.gender_unknown"
+                defaultMessage="*translation missing*"
+            />
+            , gender: "Unknown"
+        }
     } else {
         return gender
     }
 }
 
 const terminationCauseLabel = (cause) => {
-    if (cause === "Afsked") {
+    if (cause === "Terminated") {
         return {
             label: <FormattedMessage
                 id="officer.terminated"
                 defaultMessage="*translation missing*"
             />,
-            terminationCause: "Afsked"
+            terminationCause: "Terminated"
         }
-    } else if (cause === "Dræbt_i_tjeneste") {
+    } else if (cause === "Killed_in_action") {
         return {
             label: <FormattedMessage
                 id="officer.killed_in_action"
                 defaultMessage="*translation missing*"
             />,
-            terminationCause: "Dræbt_i_tjeneste"
+            terminationCause: "Killed_in_action"
         }
-    } else if (cause === "Dødsulykke") {
+    } else if (cause === "Accidental_death") {
         return {
             label:
                 <FormattedMessage
                     id="officer.accidental_death"
                     defaultMessage="*translation missing*"
                 />,
-                    terminationCause
-        :
-            "Dødsulykke"
+            terminationCause
+                :
+                "Accidental_death"
         }
-    } else if (cause === "Overført_til_andet_værn") {
+    } else if (cause === "Transferred") {
         return {
             label:
                 <FormattedMessage
                     id="officer.transferred"
                     defaultMessage="*translation missing*"
                 />,
-                    terminationCause: "Overført_til_andet_værn"
+            terminationCause: "Transferred"
         }
-    } else if (cause === "Andet") {
+    } else if (cause === "Other") {
         return {
             label:
                 <FormattedMessage
                     id="globals.other"
                     defaultMessage="*translation missing*"
                 />,
-            terminationCause: "Andet"
+            terminationCause: "Other"
         }
     } else {
         return cause
@@ -111,20 +117,6 @@ export const PersonUpdateForm = ({
             <div className="form-group">
                 <label>
                     <FormattedMessage
-                        id="person.given_name"
-                        defaultMessage="*translation missing*"
-                    />
-                </label>
-                <Field
-                    type="text"
-                    name="givenName"
-                    className={`form-control ${touched.givenName && errors.givenName ? 'is-invalid' : ''}`}
-                />
-                {touched.givenName && errors.givenName && <p className="invalid-feedback">{errors.givenName}</p>}
-            </div>
-            <div className="form-group">
-                <label>
-                    <FormattedMessage
                         id="person.surname"
                         defaultMessage="*translation missing*"
                     />
@@ -139,6 +131,20 @@ export const PersonUpdateForm = ({
             <div className="form-group">
                 <label>
                     <FormattedMessage
+                        id="person.given_name"
+                        defaultMessage="*translation missing*"
+                    />
+                </label>
+                <Field
+                    type="text"
+                    name="givenName"
+                    className={`form-control ${touched.givenName && errors.givenName ? 'is-invalid' : ''}`}
+                />
+                {touched.givenName && errors.givenName && <p className="invalid-feedback">{errors.givenName}</p>}
+            </div>
+            <div className="form-group">
+                <label>
+                    <FormattedMessage
                         id="person.born"
                         defaultMessage="*translation missing*"
                     />
@@ -147,8 +153,9 @@ export const PersonUpdateForm = ({
                     name="dateOfBirth"
                     selected={values.dateOfBirth ? moment(values.dateOfBirth, "DD/MM/YYYY") : null}
                     onChange={text => moment(text).isValid() ? setFieldValue('dateOfBirth', moment(text).format("DD/MM/YYYY")) : setFieldValue('dateOfBirth', null)}
-                    placeholderText="DD/MM/YYYY"
-                    dateFormat="DD/MM/YYYY"
+                    placeholderText="D/M YYYY"
+                    dateFormat="D/M YYYY"
+                    autoComplete="off"
                     className={`form-control ${touched.dateOfBirth && errors.dateOfBirth ? 'is-invalid' : ''}`}
                 />
                 {touched.dateOfBirth && errors.dateOfBirth && <p className="invalid-feedback d-inline">{errors.dateOfBirth}</p>}
@@ -162,6 +169,12 @@ export const PersonUpdateForm = ({
                 </label>
                 <VirtualizedSelect
                     options={values.genders}
+                    placeholder={
+                        <FormattedMessage
+                            id="globals_label.select_placeholder"
+                            defaultMessage="*translation missing*"
+                        />
+                    }
                     name="gender"
                     value={genderLabel(values.gender)}
                     onChange={value => setFieldValue('gender', value)}
@@ -181,31 +194,31 @@ export const PersonUpdateForm = ({
                     name="dateOfDeath"
                     selected={values.dateOfDeath ? moment(values.dateOfDeath, "DD/MM/YYYY") : null}
                     onChange={text => moment(text).isValid() ? setFieldValue('dateOfDeath', moment(text).format("DD/MM/YYYY")) : setFieldValue('dateOfDeath', null)}
-                    placeholderText="DD/MM/YYYY"
-                    dateFormat="DD/MM/YYYY"
+                    placeholderText="D/M YYYY"
+                    dateFormat="D/M YYYY"
+                    autoComplete="off"
                     className={`form-control ${touched.dateOfDeath && errors.dateOfDeath ? 'is-invalid' : ''}`}
                 />
                 {touched.dateOfDeath && errors.dateOfDeath && <p className="invalid-feedback d-inline">{errors.dateOfDeath}</p>}
             </div>
-            <div>
-                <label>
+            <div className="form-group">
+                <div className="switch-label">
                     <FormattedMessage
                         id="globals_form.is_officer"
                         defaultMessage="*translation missing*"
                     />
-                </label><br />
-                <input
-                    id="checkbox"
-                    type="checkbox"
-                    name="isOfficer"
-                    defaultChecked={values.isOfficer}
-                    disabled={values.isOfficer}
-                    onClick={text => setFieldValue("isOfficer", !values.isOfficer)}
-                />
-
+                </div>
+                <label className="switch">
+                    <input
+                        type="checkbox"
+                        id="checkbox"
+                        disabled={values.isOfficer}
+                        onClick={text => setFieldValue("isOfficer", !values.isOfficer)}
+                    />
+                    <span className="slider round"></span>
+                </label>
             </div>
-            <br />
-            <div id="officerDetails" className={values.isOfficer ? "d-inline" : "d-none"} >
+            <div id="officerDetails" className={!values.isOfficer ? "d-none" : "d-inline form-group"} >
                 <div className="form-group">
                     <label>
                         <FormattedMessage
@@ -247,8 +260,9 @@ export const PersonUpdateForm = ({
                         name="appointedUntil"
                         selected={values.appointedUntil ? moment(values.appointedUntil, "DD/MM/YYYY") : null}
                         onChange={text => moment(text).isValid() ? setFieldValue('appointedUntil', moment(text).format("DD/MM/YYYY")) : setFieldValue('appointedUntil', null)}
-                        placeholderText="DD/MM/YYYY"
-                        dateFormat="DD/MM/YYYY"
+                        placeholderText="D/M YYYY"
+                        dateFormat="D/M YYYY"
+                        autoComplete="off"
                         className={`form-control ${touched.appointedUntil && errors.appointedUntil ? 'is-invalid' : ''}`}
                     />
                     {touched.appointedUntil && errors.appointedUntil && <p className="invalid-feedback d-inline">{errors.appointedUntil}</p>}
@@ -261,6 +275,12 @@ export const PersonUpdateForm = ({
                         />
                     </label>
                     <VirtualizedSelect options={values.terminationCauses}
+                        placeholder={
+                            <FormattedMessage
+                                id="globals_label.select_placeholder"
+                                defaultMessage="*translation missing*"
+                            />
+                        }
                         name="terminationCause"
                         value={terminationCauseLabel(values.terminationCause)}
                         onChange={value => setFieldValue('terminationCause', value)}

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { CardTitle } from 'reactstrap'
 import moment from 'moment'
 import { PersonCreateForm } from './person-create-form'
-import { createPerson, fetchPerson } from '../_actions'
+import { createPerson } from '../_actions'
 import 'react-datepicker/dist/react-datepicker.css'
 import { withFormik } from 'formik'
 import Yup from 'yup'
@@ -15,71 +15,11 @@ class PersonCreate extends Component {
         this.state = {
             person: '',
             officerdata: '',
-            terminationCauses: [
-                {
-                    label:
-                        <FormattedMessage
-                            id="officer.terminated"
-                            defaultMessage="*translation missing*"
-                        />,
-                    terminationCause: "Afsked"
-                },
-                {
-                    label:
-                        <FormattedMessage
-                            id="officer.killed_in_action"
-                            defaultMessage="*translation missing*"
-                        />,
-                    terminationCause: "Dræbt_i_tjeneste"
-                },
-                {
-                    label:
-                        <FormattedMessage
-                            id="officer.accidental_death"
-                            defaultMessage="*translation missing*"
-                        />,
-                    terminationCause: "Dødsulykke"
-                },
-                {
-                    label:
-                        <FormattedMessage
-                            id="officer.transferred"
-                            defaultMessage="*translation missing*"
-                        />,
-                    terminationCause: "Overført_til_andet_værn"
-                },
-                {
-                    label:
-                        <FormattedMessage
-                            id="globals.other"
-                            defaultMessage="*translation missing*"
-                        />,
-                    terminationCause: "Andet"
-                }
-            ],
             redirect: false,
             isOfficer: false,
         }
-    }
 
-    componentWillMount() {
-        if (this.props.match.params.id) {
-            fetchPerson(this.props.match.params.id).then(response => {
-                this.setState({
-                    person: response.data
-                })
-                if (response.data.appointedNumber) {
-                    this.setState({
-                        officerdata: {
-                            appointedNumber: response.data.appointedNumber,
-                            dodabNumber: response.data.dodabNumber,
-                            appointedUntil: response.data.appointedUntil,
-                            terminationCause: response.data.terminationCause
-                        }
-                    })
-                }
-            })
-        }
+        this.props.showBreadCrumbs(false);
     }
 
     render() {
@@ -91,15 +31,9 @@ class PersonCreate extends Component {
             var valuesCopy = Object.assign({}, values);
             Object.keys(valuesCopy).forEach((key) => (valuesCopy[key] === null || valuesCopy[key] === '') && delete valuesCopy[key]);
 
-            if (valuesCopy.terminationCause != null) {
-                valuesCopy.terminationCause = valuesCopy.terminationCause.terminationCause
-            }
-
             if (valuesCopy.gender != null) {
                 valuesCopy.gender = valuesCopy.gender.gender
             }
-
-            delete valuesCopy.terminationCauses
 
 
             return valuesCopy
@@ -115,22 +49,23 @@ class PersonCreate extends Component {
                 appointedNumber,
                 dodabNumber,
                 appointedUntil,
-                terminationCause,
                 isOfficer,
-                terminationCauses,
             }) {
                 return {
                     givenName: givenName || '',
                     surname: surname || '',
                     dateOfBirth: dateOfBirth ? moment(dateOfBirth).format("DD/MM/YYYY") : '',
-                    gender: gender || { label: "Mand", gender: "Mand" },
+                    gender: gender || {
+                        label: <FormattedMessage
+                            id="person.gender_male"
+                            defaultMessage="*translation missing*"
+                        />, gender: "Male"
+                    },
                     dateOfDeath: dateOfDeath ? moment(dateOfDeath).format("DD/MM/YYYY") : '',
                     appointedNumber: appointedNumber || '',
                     dodabNumber: dodabNumber || '',
                     appointedUntil: appointedUntil ? moment(appointedUntil).format("DD/MM/YYYY") : '',
-                    terminationCause: terminationCause || '',
                     isOfficer: isOfficer || '',
-                    terminationCauses: terminationCauses || [],
                 }
             },
             validationSchema: Yup.object().shape({
@@ -158,30 +93,8 @@ class PersonCreate extends Component {
                         defaultMessage="*translation missing*"
                     />
                 ),
-                dodabNumber: Yup.number().max(99999999999).test('test',
-                    <FormattedMessage
-                        id="globals_form_validation.tordenskjold_nr"
-                        defaultMessage="*translation missing*"
-                    />
-                    , function () {
-                        if (document.getElementById('appointedNumber').value.length === 0 && document.getElementById('dodabNumber').value.length === 0 && checkboxIsChecked()) {
-                            return false
-                        } else {
-                            return true
-                        }
-                    }),
-                appointedNumber: Yup.number().max(99999999999).test('test',
-                    <FormattedMessage
-                        id="globals_form_validation.tordenskjold_nr"
-                        defaultMessage="*translation missing*"
-                    />
-                    , function () {
-                        if (document.getElementById('appointedNumber').value.length === 0 && document.getElementById('dodabNumber').value.length === 0 && checkboxIsChecked()) {
-                            return false
-                        } else {
-                            return true
-                        }
-                    }),
+                dodabNumber: Yup.number().max(99999999999),
+                appointedNumber: Yup.number().max(99999999999),
                 appointedUntil: Yup.string()
             }),
             handleSubmit: (
@@ -194,37 +107,45 @@ class PersonCreate extends Component {
                 }
             ) => {
                 this.setState({ isOfficer: checkboxIsChecked() })
-                createPerson(cleanValues(values)).then(
-                    person => {
-                        if (this.state.isOfficer)
-                            this.setState({ officer: { id: person.data.id } })
-                        if (!this.state.isOfficer)
-                            this.setState({ person: { id: person.data.id } })
-                        this.setState({ redirect: true })
-                        setSubmitting(false)
-                        setStatus({ success: true })
-                    },
-                    errors => {
-                        setSubmitting(false)
-                        setStatus({ error: true })
-                    }
-                );
+                createPerson(cleanValues(values)).then((createdObject) => {
+                    console.log(createdObject)
+                    if (this.state.isOfficer)
+                        this.setState({
+                            officer: {
+                                id: createdObject.data.id
+                            },
+                            person: {
+                                id: createdObject.data.person.id
+                            }
+                        })
+                    if (!this.state.isOfficer)
+                        this.setState({
+                            person: {
+                                id: createdObject.data.id
+                            }
+                        })
+                    this.setState({ redirect: true })
+                    setSubmitting(false)
+                    setStatus({ success: true })
+                }).catch(() => {
+                    setSubmitting(false)
+                    setStatus({ error: true })
+                })
             }, enableReinitialize: true
         })(PersonCreateForm);
         if (this.state.redirect && this.state.isOfficer === true) {
-            return <Redirect to={{ pathname: "/officer/" + this.state.officer.id + "/promotion" }} />
+            return <Redirect to={{ pathname: "/search/officer/" + this.state.officer.id + "/" + this.state.person.id + "/update/promotion" }} />
         } else if (this.state.redirect) {
-            return <Redirect to={{ pathname: "/person/" + this.state.person.id }} />
+            return <Redirect to={{ pathname: "/search/person/" + this.state.person.id }} />
         }
         return (
-            <div>
+            <div className="col-md-12 col-lg-8 col-lx-6 mb-4">
                 <CardTitle>
                     <FormattedMessage
                         id="person_create.title"
                         defaultMessage="*translation missing*"
                     />
                 </CardTitle>
-                <br />
                 <TheForm
                     givenName={this.state.person.givenName}
                     surname={this.state.person.surname}
@@ -234,8 +155,6 @@ class PersonCreate extends Component {
                     dodabNumber={this.state.officerdata.dodabNumber}
                     dateOfDeath={this.state.person.dateOfDeath ? moment(this.state.person.dateOfDeath, "dd/MM/yyyy") : null}
                     appointedUntil={this.state.officerdata.appointedUntil}
-                    terminationCause={this.state.officerdata.terminationCause}
-                    terminationCauses={this.state.terminationCauses}
                 />
             </div >
         )

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { CardTitle } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import { fetchUser } from '../_actions'
 import userState from '../app/user-state'
@@ -12,6 +13,8 @@ class UserDetail extends Component {
         this.state = {
             userState: ''
         }
+
+        this.props.showBreadCrumbs(true);
     }
 
     shouldComponentUpdate(nextProps) {
@@ -20,7 +23,7 @@ class UserDetail extends Component {
 
     componentDidMount() {
         if (!this.state.user) {
-            fetchUser(this.props.match.params.id).then(response => {
+            fetchUser(this.props.match.params.user_id).then(response => {
                 this.setState({
                     user: response.data
                 })
@@ -44,16 +47,16 @@ class UserDetail extends Component {
         }
 
         return (
-            <div className="container">
+            <div className="col-md-12 col-lg-8 col-lx-6 mb-4">
+                <CardTitle>
+                    <FormattedMessage
+                        id="globals_label.user_details"
+                        defaultMessage="*translation missing*"
+                    />
+                </CardTitle>
                 <div className="d-flex mb-4">
-                    <Link to="/user/search" className="btn btn-sm btn-primary mr-auto">
-                        <FormattedMessage
-                            id="user_detail.user_search"
-                            defaultMessage="*translation missing*"
-                        />
-                    </Link>
                     {this.state.userState && (this.state.userState.isAdmin || this.state.userState.isContributer) &&
-                        <Link to={`/user/${user.id}/update`} className="btn btn-sm bg-secondary text-white">
+                        <Link to={`/system/user_search/user/${user.id}/update`} className="btn btn-sm btn-secondary">
                             <FormattedMessage
                                 id="globals_btn.edit"
                                 defaultMessage="*translation missing*"

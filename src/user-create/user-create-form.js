@@ -83,8 +83,9 @@ export const UserCreateForm = ({
                     name="from"
                     selected={values.from ? moment(values.from, "DD/MM/YYYY") : null}
                     onChange={text => setFieldValue('from', moment(text).format("DD/MM/YYYY"))}
-                    placeholderText="DD/MM/YYYY"
-                    dateFormat="DD/MM/YYYY"
+                    placeholderText="D/M YYYY"
+                    dateFormat="D/M YYYY"
+                    autoComplete="off"
                     className={`form-control ${touched.from && errors.from ? 'is-invalid' : ''}`}
                 />
                 {touched.from && errors.from && <p className="invalid-feedback d-inline">{errors.from}</p>}
@@ -100,8 +101,9 @@ export const UserCreateForm = ({
                     name="until"
                     selected={values.until ? moment(values.until, "DD/MM/YYYY") : null}
                     onChange={text => setFieldValue('until', moment(text).format("DD/MM/YYYY"))}
-                    placeholderText="DD/MM/YYYY"
-                    dateFormat="DD/MM/YYYY"
+                    placeholderText="D/M YYYY"
+                    dateFormat="D/M YYYY"
+                    autoComplete="off"
                     className={`form-control ${touched.until && errors.until ? 'is-invalid' : ''}`}
                 />
                 {touched.until && errors.until && <p className="invalid-feedback d-inline">{errors.until}</p>}
@@ -114,6 +116,12 @@ export const UserCreateForm = ({
                     />
                 </label>
                 <VirtualizedSelect options={values.roles}
+                    placeholder={
+                        <FormattedMessage
+                            id="globals_label.select_placeholder"
+                            defaultMessage="*translation missing*"
+                        />
+                    }
                     name="causeOfDeath"
                     value={values.role}
                     onChange={value => setFieldValue('role', value)}
